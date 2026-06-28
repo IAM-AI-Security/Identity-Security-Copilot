@@ -59,7 +59,7 @@ This is governance AI done correctly.
 
 ## Knowledge Base
 
-44 documents · 326 indexed chunks · Last updated June 2026
+44 documents · 464 indexed chunks · Last updated June 2026
 
 ### Meridian Financial Group (Mock Client Policies)
 Fictional financial services company used as a demo client persona. Written in authentic corporate policy voice with real document IDs, approval chains, and regulatory cross-references.
