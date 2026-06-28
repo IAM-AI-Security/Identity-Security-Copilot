@@ -168,13 +168,6 @@ All three projects use AWS Bedrock Mantle for LLM inference and follow the same 
 
 ## About
 
-Built by **Chris Harris** Identity Security Architect with 15 years of CyberArk and enterprise IAM experience.
-
-Specializations: CyberArk Privilege Cloud · SailPoint IdentityNow · Okta · AWS IAM · Non-Human Identity · AI Agent Governance · SOX/FFIEC/PCI compliance
+**Go Cloud Architects**
 
 📧 curtis@igasecurityconsulting.com
-🔗 [GitHub](https://github.com/IAM-AI-Security)
-
----
-
-*Implementation available for enterprise deployment. Contact for customization and deployment services.*
