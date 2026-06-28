@@ -1,6 +1,6 @@
 # 🛡️ Identity Security Copilot
 
-> AI-assisted identity governance platform for enterprise IAM, PAM, and non-human identity teams. Answers governance questions, enforces policy guardrails, and provides architecture guidance — grounded strictly in approved enterprise standards and never inventing policy.
+> AI-assisted identity governance platform for enterprise IAM, PAM, and non-human identity teams. Answers governance questions, enforces policy guardrails, and provides architecture guidance grounded strictly in approved enterprise standards and never inventing policy.
 
 ---
 
@@ -16,7 +16,7 @@
 
 Most RAG demos are "upload PDFs, ask questions." This is different.
 
-The Identity Security Copilot is a domain-specific governance assistant built for identity security teams at financial services organizations. It answers questions the way a Principal Identity Security Architect would — with citations, rationale, and business impact — while enforcing the rule that AI assists and humans decide.
+The Identity Security Copilot is a domain-specific governance assistant built for identity security teams at financial services organizations. It answers questions the way a Principal Identity Security Architect would with citations, rationale, and business impact while enforcing the rule that AI assists and humans decide.
 
 **It handles four types of questions:**
 
@@ -49,11 +49,11 @@ This is governance AI done correctly.
 ## Architecture
 **Key architectural decisions:**
 
-- **Local embeddings** (sentence-transformers) — no data leaves the machine during indexing
-- **Bedrock Mantle** for LLM inference — data stays within AWS, satisfies FFIEC data residency requirements for financial services
-- **Conversation memory** — sliding window of last 6 turns passed to the model; follow-up questions resolve naturally without re-querying
-- **Query rewriting** — before retrieval, a fast LLM call rewrites follow-up queries into standalone queries using conversation history (coreference resolution)
-- **Strict grounding** — the model is instructed to return a fallback message when the knowledge base has no relevant content; it never generates policy from training data
+- **Local embeddings** (sentence-transformers) no data leaves the machine during indexing
+- **Bedrock Mantle** for LLM inference data stays within AWS, satisfies FFIEC data residency requirements for financial services
+- **Conversation memory** sliding window of last 6 turns passed to the model; follow-up questions resolve naturally without re-querying
+- **Query rewriting** before retrieval, a fast LLM call rewrites follow-up queries into standalone queries using conversation history (coreference resolution)
+- **Strict grounding** the model is instructed to return a fallback message when the knowledge base has no relevant content; it never generates policy from training data
 
 ---
 
@@ -105,12 +105,12 @@ The assistant adapts its response format based on who is asking:
 
 This project is governed as an enterprise AI system, not a demo:
 
-- **Answers grounded only in the knowledge base** — the model cannot use training data to answer governance questions
-- **AI assists, humans decide** — the assistant never approves, denies, or grants access
-- **Fallback enforcement** — when no relevant policy exists, a standard fallback message is returned
-- **Feedback logging** — thumbs up/down feedback is logged to `feedback_log.jsonl` for model risk monitoring
-- **Threat model** — documented in `THREAT_MODEL.md` against OWASP LLM Top 10 and NIST AI RMF
-- **Model risk** — aligned to Federal Reserve SR 26-02 (effective April 17, 2026), documented in `MODEL_RISK.md`
+- **Answers grounded only in the knowledge base** the model cannot use training data to answer governance questions
+- **AI assists, humans decide** the assistant never approves, denies, or grants access
+- **Fallback enforcement** when no relevant policy exists, a standard fallback message is returned
+- **Feedback logging** thumbs up/down feedback is logged to `feedback_log.jsonl` for model risk monitoring
+- **Threat model** documented in `THREAT_MODEL.md` against OWASP LLM Top 10 and NIST AI RMF
+- **Model risk** aligned to Federal Reserve SR 26-02 (effective April 17, 2026), documented in `MODEL_RISK.md`
 
 ---
 
@@ -143,12 +143,12 @@ This project is governed as an enterprise AI system, not a demo:
 
 The following capabilities are planned for v2:
 
-- **IAM Policy Analyzer** — paste a JSON IAM policy, receive findings against least-privilege standards and a remediated version
-- **Audit Evidence Generator** — generate a ready-to-use SOX or PCI evidence package from a natural language request
-- **Access Request Evaluator** — submit an access request, receive a governance assessment against loaded policies
-- **Semantic Chunking** — section-boundary chunking for more consistent citations
-- **Architecture Generator** — generate full CyberArk or AWS IAM architecture specifications from a natural language prompt
-- **Hybrid Search** — BM25 keyword search combined with vector similarity for improved retrieval of exact policy terms
+- **IAM Policy Analyzer** paste a JSON IAM policy, receive findings against least-privilege standards and a remediated version
+- **Audit Evidence Generator** generate a ready-to-use SOX or PCI evidence package from a natural language request
+- **Access Request Evaluator** submit an access request, receive a governance assessment against loaded policies
+- **Semantic Chunking** section-boundary chunking for more consistent citations
+- **Architecture Generator** generate full CyberArk or AWS IAM architecture specifications from a natural language prompt
+- **Hybrid Search** BM25 keyword search combined with vector similarity for improved retrieval of exact policy terms
 
 ---
 
@@ -168,7 +168,7 @@ All three projects use AWS Bedrock Mantle for LLM inference and follow the same 
 
 ## About
 
-Built by **Chris Harris** — Identity Security Architect with 15 years of CyberArk and enterprise IAM experience.
+Built by **Chris Harris** Identity Security Architect with 15 years of CyberArk and enterprise IAM experience.
 
 Specializations: CyberArk Privilege Cloud · SailPoint IdentityNow · Okta · AWS IAM · Non-Human Identity · AI Agent Governance · SOX/FFIEC/PCI compliance
 
