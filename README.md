@@ -8,7 +8,7 @@
 
 ![Identity Security Copilot](screenshot.png)
 
-🎥 **[Watch the Demo Video](#)** — Demo video coming soon.
+🎥 **[Watch the Demo Video](#)**
 
 ---
 
