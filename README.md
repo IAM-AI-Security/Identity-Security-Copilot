@@ -10,8 +10,6 @@
 
 ![Executive mode SOX audit response](screenshot_response.png)
 
-![Executive mode SOX audit response](screenshot_response.png)
-
 🎥 **[Watch the Demo Video](#)**
 
 ---
