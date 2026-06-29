@@ -6,6 +6,12 @@
 
 ## Demo
 
+![Identity Security Copilot](screenshot.png)
+
+
+![Identity Security Copilot](screenshot.png)
+
+
 🎥 **[Watch the Demo Video](#)** ← add YouTube link after recording
 
 ![Identity Security Copilot](screenshots/demo.png)
