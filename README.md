@@ -1,6 +1,6 @@
 # 🛡️ Identity Security Copilot
 
-> AI-assisted identity governance platform for enterprise IAM, PAM, and non-human identity teams. Answers governance questions, enforces policy guardrails, and provides architecture guidance grounded strictly in approved enterprise standards and never inventing policy.
+> A governance policy service for identity security: a deterministic, policy-grounded reasoning layer that other AI agents, tools, and humans can call to get a citation-backed answer on what an action should or should not be allowed to do. The chat interface below is one way to reach it. The FastAPI and MCP layers (see below) are the way other agents reach it programmatically.
 
 ---
 
@@ -17,6 +17,8 @@
 ## What This Is
 
 Most RAG demos are "upload PDFs, ask questions." This is different.
+
+This project did not start as a chatbot and grow an API as an afterthought. It is built the other way around: a policy reasoning engine with a chat interface as its front door. The same grounded, cited, deterministic-gated reasoning that answers a human's question in Streamlit is exposed as a callable API (FastAPI) and as MCP tools any MCP-compatible client can invoke -- so an agent like the IAM Privilege Drift Agent or the NHI Lifecycle Agent can ask "is this action policy-compliant" and get the same answer a human would, with the same sources and the same refusal to invent policy.
 
 The Identity Security Copilot is a domain-specific governance assistant built for identity security teams at financial services organizations. It answers questions the way a Principal Identity Security Architect would with citations, rationale, and business impact while enforcing the rule that AI assists and humans decide.
 
@@ -90,6 +92,18 @@ SOX Evidence Template · PCI Access Review Template · Privileged Access Review 
 
 ---
 
+## API and MCP Server
+
+The Copilot's policy reasoning is callable programmatically, not just through the chat UI, via two layers:
+
+**FastAPI wrapper** (`copilot-fastapi`) -- exposes `/v1/policy-query` and `/v1/policy-check` over HTTP, authenticated with a real OAuth 2.1 client-credentials grant (short-lived, HS256-signed Bearer tokens, 5-minute expiry, constant-time secret comparison, rate-limited token issuance). Every registered agent (`iam-drift-agent`, `nhi-lifecycle-agent`, `mcp-server`) exchanges its own client credentials for its own token; no shared static API key.
+
+**MCP server** (`copilot-mcp-server`) -- exposes the same reasoning as two MCP tools, `check_identity_policy` and `check_finding_compliance`, callable by any MCP-compatible client (Claude Desktop, Cursor, VS Code Copilot, or another agent). Every tool call is evaluated against a Cedar policy before the underlying Copilot API is ever reached -- this is a real authorization gate, not a documentation-only claim: unauthorized calls are denied by a fail-closed Policy Enforcement Point before they can reach the knowledge base at all.
+
+Both layers were security-reviewed before this README was written, not after: an injection-risk gap (untrusted retrieved context reaching the model without being marked as data rather than instructions) was found and fixed in the retrieval layer, and a real authentication regression (the MCP server silently falling back to stub responses because its client had not been updated to the OAuth 2.1 flow the API had already moved to) was found and fixed, then proven end-to-end with a live token exchange and a real grounded policy answer.
+
+See the Agentic Trust Framework document for the full design rationale, including the named, honest limitations (single shared identity per MCP client in this phase; network exposure not yet applicable pre-deployment).
+
 ## Persona Modes
 
 The assistant adapts its response format based on who is asking:
@@ -151,6 +165,7 @@ The following capabilities are planned for v2:
 - **Semantic Chunking** section-boundary chunking for more consistent citations
 - **Architecture Generator** generate full CyberArk or AWS IAM architecture specifications from a natural language prompt
 - **Hybrid Search** BM25 keyword search combined with vector similarity for improved retrieval of exact policy terms
+- **Runtime Correlation Agent** (planned) a lightweight agent correlating CloudWatch logs with vulnerability scan results using this same RAG-grounded reasoning layer -- the dynamic, post-deployment counterpart to Infra Review's static, pre-deployment analysis
 
 ---
 
@@ -170,6 +185,6 @@ All three projects use AWS Bedrock Mantle for LLM inference and follow the same 
 
 ## About
 
-**Go Cloud Architects**
+**Security Architect @ Go Cloud Architects**
 
-📧 curtis@igasecurityconsulting.com
+Contact: curtis@igasecurityconsulting.com
