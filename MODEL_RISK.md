@@ -1,7 +1,9 @@
 # Model Risk Management
 
 ## 1. Overview
-This document outlines the governance and risk management framework for the Identity Governance RAG Assistant, aligning with the principles of the Federal Reserve's SR 26-02 (formerly SR 11-7) guidance on Model Risk Management.
+This document applies model risk management principles to the Identity Governance RAG Assistant.
+
+Scope note. Federal Reserve SR 26-02, which superseded SR 11-7 effective April 17, 2026, places generative and agentic AI models outside its scope at footnote 3, while directing that an organization's own risk management practices should determine appropriate governance for systems the guidance does not cover. This system is generative, so SR 26-02 does not apply to it by its own terms. The controls below apply the guidance's principles to a system it explicitly excludes, alongside NIST AI RMF, because the absence of prescriptive guidance is not an absence of model risk.
 
 ## 2. Core Principles
 

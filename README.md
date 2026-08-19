@@ -125,8 +125,8 @@ This project is governed as an enterprise AI system, not a demo:
 - **AI assists, humans decide** the assistant never approves, denies, or grants access
 - **Fallback enforcement** when no relevant policy exists, a standard fallback message is returned
 - **Feedback logging** thumbs up/down feedback is logged to `feedback_log.jsonl` for model risk monitoring
-- **Threat model** documented in `THREAT_MODEL.md` against OWASP LLM Top 10 and NIST AI RMF
-- **Model risk** aligned to Federal Reserve SR 26-02 (effective April 17, 2026), documented in `MODEL_RISK.md`
+- **LLM threat mapping** prompt injection, data poisoning and over-reliance are mapped to OWASP LLM Top 10 and NIST AI RMF in `COMPLIANCE.md`
+- **Model risk** SR 26-02 places generative AI outside its scope at footnote 3 while directing that an organization's own practices govern what it does not cover; `MODEL_RISK.md` applies its principles on that basis
 
 ---
 
@@ -147,9 +147,8 @@ This project is governed as an enterprise AI system, not a demo:
 
 | Document | Purpose |
 |---|---|
-| `THREAT_MODEL.md` | Threats and mitigations mapped to OWASP LLM Top 10 and NIST AI RMF |
-| `MODEL_RISK.md` | Model risk management aligned to SR 26-02 |
-| `COMPLIANCE.md` | Control mapping across NIST 800-53, SOX, PCI DSS, OWASP |
+| `MODEL_RISK.md` | Model risk controls, with a stated scope boundary against SR 26-02 |
+| `COMPLIANCE.md` | Control mapping across NIST 800-53, NIST AI RMF, SOX, PCI DSS, OWASP LLM Top 10, MITRE ATLAS |
 | `BUSINESS_CASE.md` | Business case and value narrative |
 | `SOURCE_INDEX.md` | Authoritative source index with official URLs |
 
