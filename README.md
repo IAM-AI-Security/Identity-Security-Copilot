@@ -18,9 +18,9 @@
 
 Most RAG demos are "upload PDFs, ask questions." This is different.
 
-This project did not start as a chatbot and grow an API as an afterthought. It is built the other way around: a policy reasoning engine with a chat interface as its front door. The same grounded, cited, deterministic-gated reasoning that answers a human's question in Streamlit is exposed as a callable API (FastAPI) and as MCP tools any MCP-compatible client can invoke -- so an agent like the IAM Privilege Drift Agent or the NHI Lifecycle Agent can ask "is this action policy-compliant" and get the same answer a human would, with the same sources and the same refusal to invent policy.
+This project did not start as a chatbot and grow an API as an afterthought. It is built the other way around: a policy reasoning engine with a chat interface as its front door. The same grounded, cited, deterministic-gated reasoning that answers a human's question in Streamlit is exposed as a callable API (FastAPI) and as MCP tools any MCP-compatible client can invoke. An agent like the IAM Privilege Drift Agent or the NHI Lifecycle Agent can ask whether an action is policy-compliant and get the same answer a human would, with the same sources and the same refusal to invent policy.
 
-The Identity Security Copilot is a domain-specific governance assistant built for identity security teams at financial services organizations. It answers questions the way a Principal Identity Security Architect would with citations, rationale, and business impact while enforcing the rule that AI assists and humans decide.
+The Identity Security Copilot is a domain-specific governance assistant built for identity security teams at financial services organizations. It answers questions the way a Principal Identity Security Architect would, with citations, rationale, and business impact, while enforcing the rule that AI assists and humans decide.
 
 **It handles four types of questions:**
 
@@ -53,11 +53,11 @@ This is governance AI done correctly.
 ## Architecture
 **Key architectural decisions:**
 
-- **Local embeddings** (sentence-transformers) no data leaves the machine during indexing
-- **Bedrock Mantle** for LLM inference data stays within AWS, satisfies FFIEC data residency requirements for financial services
-- **Conversation memory** sliding window of last 6 turns passed to the model; follow-up questions resolve naturally without re-querying
-- **Query rewriting** before retrieval, a fast LLM call rewrites follow-up queries into standalone queries using conversation history (coreference resolution)
-- **Strict grounding** the model is instructed to return a fallback message when the knowledge base has no relevant content; it never generates policy from training data
+- **Local embeddings** (sentence-transformers): no data leaves the machine during indexing
+- **Mistral Large 3 on Amazon Bedrock Mantle** for LLM inference: inference runs inside AWS and no prompt or document content leaves the AWS boundary.
+- **Conversation memory**: sliding window of last 6 turns passed to the model; follow-up questions resolve naturally without re-querying
+- **Query rewriting**: before retrieval, a fast LLM call rewrites follow-up queries into standalone queries using conversation history (coreference resolution)
+- **Strict grounding**: the model is instructed to return a fallback message when the knowledge base has no relevant content; it never generates policy from training data
 
 ---
 
@@ -96,9 +96,9 @@ SOX Evidence Template · PCI Access Review Template · Privileged Access Review 
 
 The Copilot's policy reasoning is callable programmatically, not just through the chat UI, via two layers:
 
-**FastAPI wrapper** (`copilot-fastapi`) -- exposes `/v1/policy-query` and `/v1/policy-check` over HTTP, authenticated with a real OAuth 2.1 client-credentials grant (short-lived, HS256-signed Bearer tokens, 5-minute expiry, constant-time secret comparison, rate-limited token issuance). Every registered agent (`iam-drift-agent`, `nhi-lifecycle-agent`, `mcp-server`) exchanges its own client credentials for its own token; no shared static API key.
+**FastAPI wrapper** (`copilot-fastapi`). Exposes `/v1/policy-query` and `/v1/policy-check` over HTTP, authenticated with a real OAuth 2.1 client-credentials grant (short-lived, HS256-signed Bearer tokens, 5-minute expiry, constant-time secret comparison, rate-limited token issuance). Every registered agent (`iam-drift-agent`, `nhi-lifecycle-agent`, `mcp-server`) exchanges its own client credentials for its own token; no shared static API key.
 
-**MCP server** (`copilot-mcp-server`) -- exposes the same reasoning as two MCP tools, `check_identity_policy` and `check_finding_compliance`, callable by any MCP-compatible client (Claude Desktop, Cursor, VS Code Copilot, or another agent). Every tool call is evaluated against a Cedar policy before the underlying Copilot API is ever reached -- this is a real authorization gate, not a documentation-only claim: unauthorized calls are denied by a fail-closed Policy Enforcement Point before they can reach the knowledge base at all.
+**MCP server** (`copilot-mcp-server`). Exposes the same reasoning as two MCP tools, `check_identity_policy` and `check_finding_compliance`, callable by any MCP-compatible client (Claude Desktop, Cursor, VS Code Copilot, or another agent). Every tool call is evaluated against a Cedar policy before the underlying Copilot API is ever reached. This is a real authorization gate, not a documentation-only claim: unauthorized calls are denied by a fail-closed Policy Enforcement Point before they can reach the knowledge base at all.
 
 Both layers were security-reviewed before this README was written, not after: an injection-risk gap (untrusted retrieved context reaching the model without being marked as data rather than instructions) was found and fixed in the retrieval layer, and a real authentication regression (the MCP server silently falling back to stub responses because its client had not been updated to the OAuth 2.1 flow the API had already moved to) was found and fixed, then proven end-to-end with a live token exchange and a real grounded policy answer.
 
@@ -121,11 +121,11 @@ The assistant adapts its response format based on who is asking:
 
 This project is governed as an enterprise AI system, not a demo:
 
-- **Answers grounded only in the knowledge base** the model cannot use training data to answer governance questions
-- **AI assists, humans decide** the assistant never approves, denies, or grants access
-- **Fallback enforcement** when no relevant policy exists, a standard fallback message is returned
-- **Feedback logging** thumbs up/down feedback is logged to `feedback_log.jsonl` for model risk monitoring
-- **LLM threat mapping** prompt injection, data poisoning and over-reliance are mapped to OWASP LLM Top 10 and NIST AI RMF in `COMPLIANCE.md`
+- **Answers grounded only in the knowledge base**: the model cannot use training data to answer governance questions
+- **AI assists, humans decide**: the assistant never approves, denies, or grants access
+- **Fallback enforcement**: when no relevant policy exists, a standard fallback message is returned
+- **Feedback logging**: thumbs up/down feedback is logged to `feedback_log.jsonl` for model risk monitoring
+- **LLM threat mapping**: prompt injection, data poisoning and over-reliance are mapped to OWASP LLM Top 10 and NIST AI RMF in `COMPLIANCE.md`
 - **Model risk** SR 26-02 places generative AI outside its scope at footnote 3 while directing that an organization's own practices govern what it does not cover; `MODEL_RISK.md` applies its principles on that basis
 
 ---
@@ -158,13 +158,13 @@ This project is governed as an enterprise AI system, not a demo:
 
 The following capabilities are planned for v2:
 
-- **IAM Policy Analyzer** paste a JSON IAM policy, receive findings against least-privilege standards and a remediated version
-- **Audit Evidence Generator** generate a ready-to-use SOX or PCI evidence package from a natural language request
-- **Access Request Evaluator** submit an access request, receive a governance assessment against loaded policies
-- **Semantic Chunking** section-boundary chunking for more consistent citations
-- **Architecture Generator** generate full CyberArk or AWS IAM architecture specifications from a natural language prompt
-- **Hybrid Search** BM25 keyword search combined with vector similarity for improved retrieval of exact policy terms
-- **Runtime Correlation Agent** (planned) a lightweight agent correlating CloudWatch logs with vulnerability scan results using this same RAG-grounded reasoning layer -- the dynamic, post-deployment counterpart to Infra Review's static, pre-deployment analysis
+- **IAM Policy Analyzer**: paste a JSON IAM policy, receive findings against least-privilege standards and a remediated version
+- **Audit Evidence Generator**: generate a ready-to-use SOX or PCI evidence package from a natural language request
+- **Access Request Evaluator**: submit an access request, receive a governance assessment against loaded policies
+- **Semantic Chunking**: section-boundary chunking for more consistent citations
+- **Architecture Generator**: generate full CyberArk or AWS IAM architecture specifications from a natural language prompt
+- **Hybrid Search**: BM25 keyword search combined with vector similarity for improved retrieval of exact policy terms
+- **Runtime Correlation Agent** (planned): a lightweight agent correlating CloudWatch logs with vulnerability scan results using this same RAG-grounded reasoning layer. It is the dynamic, post-deployment counterpart to Infra Review's static, pre-deployment analysis.
 
 ---
 

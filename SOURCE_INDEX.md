@@ -1,13 +1,13 @@
 # Authoritative Source Document Index
-### Identity Governance RAG Assistant — Knowledge Base Grounding Sources
+### Identity Governance RAG Assistant: Knowledge Base Grounding Sources
 
-This index lists every **official, authoritative source document** used to ground the RAG assistant's knowledge base. For RAG, these are the documents you *retrieve from and cite* — they are not used to "train" the model. Each entry lists the canonical publisher, the current version, the direct official URL, and a licensing/redistribution note so you know what can be bundled into the repo versus what should be summarized and linked.
+This index lists every **official, authoritative source document** used to ground the RAG assistant's knowledge base. For RAG, these are the documents you *retrieve from and cite*, not the documents used to "train" the model. Each entry lists the canonical publisher, the current version, the direct official URL, and a licensing/redistribution note so you know what can be bundled into the repo versus what should be summarized and linked.
 
-> **Licensing principle:** U.S. Government works (NIST, Federal Reserve, OCC, AWS public docs) are generally not subject to copyright and may be redistributed with attribution. Vendor documentation (CyberArk, Microsoft, Okta) and consortium content (CIS, OWASP, MITRE) are copyrighted — **summarize in your own `.md` files and link to the source** rather than redistributing the full PDFs. The `vendors/` and `frameworks/` markdown files in this repo are original summaries written for this purpose; the URLs below are the citations.
+> **Licensing principle:** U.S. Government works (NIST, Federal Reserve, OCC, AWS public docs) are generally not subject to copyright and may be redistributed with attribution. Vendor documentation (CyberArk, Microsoft, Okta) and consortium content (CIS, OWASP, MITRE) are copyrighted, so **summarize in your own `.md` files and link to the source** rather than redistributing the full PDFs. The `vendors/` and `frameworks/` markdown files in this repo are original summaries written for this purpose; the URLs below are the citations.
 
 ---
 
-## 1. NIST Frameworks (U.S. Government — public domain, redistributable with attribution)
+## 1. NIST Frameworks (U.S. Government: public domain, redistributable with attribution)
 
 | Document | Version / ID | Official Source URL |
 | :--- | :--- | :--- |
@@ -20,7 +20,7 @@ This index lists every **official, authoritative source document** used to groun
 | AI RMF landing page | AI 100-1 | https://www.nist.gov/itl/ai-risk-management-framework |
 | Cybersecurity Framework 2.0 | CSF 2.0 (NIST CSWP 29) | https://nvlpubs.nist.gov/nistpubs/CSWP/NIST.CSWP.29.pdf |
 
-## 2. AI / LLM Security Frameworks (consortium — copyrighted, summarize + link)
+## 2. AI / LLM Security Frameworks (consortium: copyrighted, summarize + link)
 
 | Document | Version | Official Source URL |
 | :--- | :--- | :--- |
@@ -28,7 +28,7 @@ This index lists every **official, authoritative source document** used to groun
 | OWASP Gen AI Security Project (living) | 2025 | https://genai.owasp.org/llm-top-10/ |
 | MITRE ATLAS (adversarial threats to AI systems) | Living KB | https://atlas.mitre.org/ |
 
-## 3. Model Risk Governance (U.S. Government — public domain)
+## 3. Model Risk Governance (U.S. Government: public domain)
 
 | Document | Version | Official Source URL |
 | :--- | :--- | :--- |
@@ -37,14 +37,14 @@ This index lists every **official, authoritative source document** used to groun
 
 > **Scope note.** SR 26-02 places generative and agentic AI models outside its scope at footnote 3, while directing that an organization's own risk management practices should govern systems the guidance does not cover. This assistant is generative, so the guidance does not apply to it by its own terms. It is indexed here because the knowledge base retrieves and cites it, not because this system claims conformance with it. See `MODEL_RISK.md`.
 
-## 4. Cloud Security Benchmarks (CIS — copyrighted, free download w/ registration; summarize + link)
+## 4. Cloud Security Benchmarks (CIS: copyrighted, free download w/ registration; summarize + link)
 
 | Document | Version | Official Source URL |
 | :--- | :--- | :--- |
 | CIS Amazon Web Services Foundations Benchmark | v5.0.0 (latest) | https://www.cisecurity.org/benchmark/amazon_web_services |
 | CIS Microsoft 365 Foundations Benchmark | latest | https://www.cisecurity.org/benchmark/microsoft_365 |
 
-## 5. Vendor Governance Documentation (copyrighted — summarize + link)
+## 5. Vendor Governance Documentation (copyrighted: summarize + link)
 
 ### CyberArk
 | Topic | Official Source URL |
@@ -73,12 +73,12 @@ This index lists every **official, authoritative source document** used to groun
 | SCIM concept | https://developer.okta.com/docs/concepts/scim/ |
 | Lifecycle mgmt (OIN) | https://developer.okta.com/docs/guides/oin-lifecycle-mgmt-overview/ |
 
-### AWS (public docs — generally redistributable with attribution)
+### AWS (public docs: generally redistributable with attribution)
 | Topic | Official Source URL |
 | :--- | :--- |
 | IAM Security Best Practices | https://docs.aws.amazon.com/IAM/latest/UserGuide/best-practices.html |
 | Validate policies with IAM Access Analyzer | https://docs.aws.amazon.com/IAM/latest/UserGuide/access-analyzer-policy-validation.html |
-| IAM Identity Center — permission sets | https://docs.aws.amazon.com/singlesignon/latest/userguide/permissionsetsconcept.html |
+| IAM Identity Center: permission sets | https://docs.aws.amazon.com/singlesignon/latest/userguide/permissionsetsconcept.html |
 | IAM Access Analyzer | https://docs.aws.amazon.com/IAM/latest/UserGuide/what-is-access-analyzer.html |
 | AWS Secrets Manager | https://docs.aws.amazon.com/secretsmanager/ |
 | Organizations / SCPs | https://docs.aws.amazon.com/organizations/latest/userguide/orgs_manage_policies_scps.html |

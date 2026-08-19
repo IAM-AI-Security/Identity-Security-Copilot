@@ -2,7 +2,7 @@
 
 **Document Type:** Investment Justification  
 **Prepared For:** Chief Information Security Officer  
-**Classification:** Internal -- Restricted  
+**Classification:** Internal, Restricted  
 **Framework:** Enterprise business case per McKinsey and Deloitte standards  
 **Disclaimer:** All financial estimates in this document are modeled projections based on stated assumptions. Actual results will vary by organization, team size, and deployment scope.
 
@@ -188,9 +188,9 @@ The Identity Governance RAG Assistant (Copilot) also serves as the shared decisi
 1. Each agent scans its environment and reports findings to a shared inventory.
 2. The Copilot classifies each finding against a defined privilege tier (Standard, Sensitive, Privileged, or Critical) based on documented governance rules.
 3. The Copilot evaluates the finding against approved policy, citing the specific policy section that applies.
-4. A deterministic gate -- not the AI model -- determines the next step: findings that are unambiguous and reversible may be automatically remediated; findings that are irreversible, ambiguous, or high-impact always route to a human for review.
+4. A deterministic gate, not the AI model, determines the next step: findings that are unambiguous and reversible may be automatically remediated; findings that are irreversible, ambiguous, or high-impact always route to a human for review.
 5. Every decision, whether automated or human-reviewed, is logged with its supporting policy citation for audit purposes.
 
 **Why this matters:**
-This design keeps the AI model in an advisory and classification role only. It never directly executes privileged actions. This separation -- the AI interprets, deterministic code enforces, a human owns any irreversible decision -- is consistent with emerging regulatory expectations for AI governance (including the EU AI Act's human oversight requirements and the NIST AI Risk Management Framework), and it produces an audit trail that can be reviewed independent of the AI system itself.
+This design keeps the AI model in an advisory and classification role only. It never directly executes privileged actions. The AI interprets, deterministic code enforces, and a human owns any irreversible decision. That separation is consistent with emerging regulatory expectations for AI governance (including the EU AI Act's human oversight requirements and the NIST AI Risk Management Framework), and it produces an audit trail that can be reviewed independent of the AI system itself.
 
