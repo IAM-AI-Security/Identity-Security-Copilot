@@ -139,7 +139,7 @@ This project is governed as an enterprise AI system, not a demo:
 | Vector Store | FAISS IndexFlatIP | Cosine similarity; deterministic; no external dependency |
 | LLM | Mistral Large 3 (675B) | Via AWS Bedrock Mantle; data stays within AWS |
 | Auth | AWS Secrets Manager + Bearer token | API key stored in Secrets Manager; never hardcoded |
-| Infrastructure | AWS (us-east-1) | Satisfies FFIEC data residency for financial services |
+| Infrastructure | AWS (us-east-1) | Inference and storage remain inside the AWS account boundary |
 
 ---
 
