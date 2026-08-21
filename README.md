@@ -114,7 +114,7 @@ The Copilot's policy reasoning is callable programmatically, not just through th
 
 Both layers were security-reviewed before this README was written, not after: an injection-risk gap (untrusted retrieved context reaching the model without being marked as data rather than instructions) was found and fixed in the retrieval layer, and a real authentication regression (the MCP server silently falling back to stub responses because its client had not been updated to the OAuth 2.1 flow the API had already moved to) was found and fixed, then proven end-to-end with a live token exchange and a real grounded policy answer.
 
-The full design rationale, including the named limitations (a single shared identity per MCP client in this phase, and network exposure not yet applicable pre-deployment), is in `agentic-trust-framework.md` in the [IAM-AI-Security/agentic-trust-reference](https://github.com/IAM-AI-Security/agentic-trust-reference) repository.
+The full design rationale, including the named limitations (a single shared identity per MCP client in this phase, and network exposure not yet applicable pre-deployment), is recorded in the Agentic Trust Framework document, which is not public.
 
 ## Persona Modes
 
