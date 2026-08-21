@@ -1,4 +1,4 @@
-# 🛡️ Identity Security Copilot
+# Identity Security Copilot
 
 > A governance policy service for identity security: a deterministic, policy-grounded reasoning layer that other AI agents, tools, and humans can call to get a citation-backed answer on what an action should or should not be allowed to do. The chat interface below is one way to reach it. The FastAPI and MCP layers (see below) are the way other agents reach it programmatically.
 
@@ -49,7 +49,7 @@ system. Available for demonstration on request.
 
 ## The Policy Violation Scenario
 
-The strongest demonstration of the tool is what happens when a request violates policy:
+The clearest test of the tool is what happens when a request violates policy:
 
 > **"Melissa is a contractor customer service manager at Meridian Financial Group requesting permanent AdministratorAccess to the production AWS account. Is this allowed?"**
 
@@ -59,8 +59,6 @@ The assistant:
 3. Explains the Zero Standing Privilege violation
 4. Redirects to the authorized human reviewer
 5. Never makes the access decision itself
-
-This is governance AI done correctly.
 
 ---
 
@@ -116,7 +114,7 @@ The Copilot's policy reasoning is callable programmatically, not just through th
 
 Both layers were security-reviewed before this README was written, not after: an injection-risk gap (untrusted retrieved context reaching the model without being marked as data rather than instructions) was found and fixed in the retrieval layer, and a real authentication regression (the MCP server silently falling back to stub responses because its client had not been updated to the OAuth 2.1 flow the API had already moved to) was found and fixed, then proven end-to-end with a live token exchange and a real grounded policy answer.
 
-The full design rationale, including the named limitations (a single shared identity per MCP client in this phase, and network exposure not yet applicable pre-deployment), is held in the Agentic Trust Framework document, which is not public.
+The full design rationale, including the named limitations (a single shared identity per MCP client in this phase, and network exposure not yet applicable pre-deployment), is in `agentic-trust-framework.md` in the [IAM-AI-Security/agentic-trust-reference](https://github.com/IAM-AI-Security/agentic-trust-reference) repository.
 
 ## Persona Modes
 
@@ -124,10 +122,10 @@ The assistant adapts its response format based on who is asking:
 
 | Persona | Response Style | Best For |
 |---|---|---|
-| 🏛️ Architect | Architecture diagrams, component flows, trade-offs, migration considerations | Design reviews, solution architecture |
-| ⚙️ Engineer | CLI commands, configuration steps, troubleshooting diagnostics | Implementation, operations |
-| 📋 Auditor | Evidence checklists, control citations, compliance mappings | Audit preparation, evidence collection |
-| 👔 Executive | One-paragraph summary, risk level, business impact, affected teams | CISO briefings, board reporting |
+| Architect | Architecture diagrams, component flows, trade-offs, migration considerations | Design reviews, solution architecture |
+| Engineer | CLI commands, configuration steps, troubleshooting diagnostics | Implementation, operations |
+| Auditor | Evidence checklists, control citations, compliance mappings | Audit preparation, evidence collection |
+| Executive | One-paragraph summary, risk level, business impact, affected teams | CISO briefings, board reporting |
 
 ---
 

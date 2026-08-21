@@ -53,7 +53,7 @@ The Identity Security Copilot is a retrieval-augmented generation system that an
 ### 2.1 How It Works
 
 1. An engineer submits a governance question in plain English.
-2. The system retrieves the most relevant content from 44 approved documents and 326 indexed sections using semantic search.
+2. The system retrieves the most relevant content from 45 approved documents and 531 indexed chunks using semantic search.
 3. Mistral Large 3 (675B parameters) synthesizes a structured answer using only the retrieved content.
 4. The answer is formatted for the engineer's role: Architect, Engineer, Auditor, or Executive.
 5. Source documents are cited. The engineer validates and decides.
