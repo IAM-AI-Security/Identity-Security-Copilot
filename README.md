@@ -10,8 +10,6 @@
 
 ![Executive mode SOX audit response](screenshot_response.png)
 
-🎥 **[Watch the Demo Video](#)**
-
 ---
 
 ## What This Is
@@ -30,6 +28,22 @@ The Identity Security Copilot is a domain-specific governance assistant built fo
 | Architecture & Design | How does HTML5 Gateway fit into CyberArk? | Component flow + trade-offs + migration considerations |
 | Troubleshooting | CPM rotation is failing on a Windows domain account | Senior engineer diagnostic steps |
 | Compliance & Audit | What evidence is needed for a SOX privileged access review? | Audit artifact checklist with citations |
+
+---
+
+## What is in this repository
+
+The implementation is not public.
+
+This repository contains the README, the governance and risk documents
+that describe the system, and a sample of the policy corpus. The
+Streamlit application, the retrieval engine, the ingestion pipeline, the
+FastAPI wrapper, the MCP server and the remainder of the corpus are held
+privately.
+
+This is a deliberate choice and it is stated here so that nobody clones
+this repository expecting to run it. The screenshots show the running
+system. Available for demonstration on request.
 
 ---
 
@@ -63,7 +77,7 @@ This is governance AI done correctly.
 
 ## Knowledge Base
 
-44 documents · 464 indexed chunks · Last updated June 2026
+45 documents · 531 indexed chunks · Last updated August 2026
 
 ### Meridian Financial Group (Mock Client Policies)
 Fictional financial services company used as a demo client persona. Written in authentic corporate policy voice with real document IDs, approval chains, and regulatory cross-references.
@@ -102,7 +116,7 @@ The Copilot's policy reasoning is callable programmatically, not just through th
 
 Both layers were security-reviewed before this README was written, not after: an injection-risk gap (untrusted retrieved context reaching the model without being marked as data rather than instructions) was found and fixed in the retrieval layer, and a real authentication regression (the MCP server silently falling back to stub responses because its client had not been updated to the OAuth 2.1 flow the API had already moved to) was found and fixed, then proven end-to-end with a live token exchange and a real grounded policy answer.
 
-See the Agentic Trust Framework document for the full design rationale, including the named, honest limitations (single shared identity per MCP client in this phase; network exposure not yet applicable pre-deployment).
+The full design rationale, including the named limitations (a single shared identity per MCP client in this phase, and network exposure not yet applicable pre-deployment), is held in the Agentic Trust Framework document, which is not public.
 
 ## Persona Modes
 
@@ -121,7 +135,13 @@ The assistant adapts its response format based on who is asking:
 
 This project is governed as an enterprise AI system, not a demo:
 
-- **Answers grounded only in the knowledge base**: the model cannot use training data to answer governance questions
+- **Grounding is measured, not asserted**: every answer is scored by an Amazon Bedrock Guardrails contextual grounding check before it is returned. The retrieved context, the question and the answer are sent to `ApplyGuardrail`, which returns a GROUNDING score and a RELEVANCE score. Both must meet a threshold of 0.75 or the answer is withheld and the standard fallback is returned instead. If the check cannot be completed, for any reason, the answer is withheld as well: an answer that could not be verified is not treated as an answer that passed. The scores and the decision travel with every response under `grounding`.
+
+  What this is and is not:
+  - It is a score, not a proof. A high grounding score means the answer's claims track the retrieved text closely; it is not a guarantee of correctness.
+  - The 0.75 threshold is a tunable configuration value, not a property of the system. Lowering it serves more answers and verifies less.
+  - The check runs after generation, because the inference endpoint does not support inline guardrails. Generation cost is therefore incurred even on answers that are then refused.
+  - It cannot detect an answer that is correctly grounded in a source document that is itself wrong. It measures fidelity to the corpus, not the truth of the corpus.
 - **AI assists, humans decide**: the assistant never approves, denies, or grants access
 - **Fallback enforcement**: when no relevant policy exists, a standard fallback message is returned
 - **Feedback logging**: thumbs up/down feedback is logged to `feedback_log.jsonl` for model risk monitoring
@@ -138,7 +158,7 @@ This project is governed as an enterprise AI system, not a demo:
 | Embeddings | sentence-transformers all-MiniLM-L6-v2 | Local execution; no data egress during indexing |
 | Vector Store | FAISS IndexFlatIP | Cosine similarity; deterministic; no external dependency |
 | LLM | Mistral Large 3 (675B) | Via AWS Bedrock Mantle; data stays within AWS |
-| Auth | AWS Secrets Manager + Bearer token | API key stored in Secrets Manager; never hardcoded |
+| Auth | Bearer token from the environment | Bedrock Mantle API key read from `BEDROCK_MANTLE_API_KEY`; never hardcoded in source |
 | Infrastructure | AWS (us-east-1) | Inference and storage remain inside the AWS account boundary |
 
 ---
@@ -178,7 +198,7 @@ This project is the governance layer for a three-part identity security AI portf
 | **NHI Lifecycle Automation Agent** | Automated non-human identity lifecycle management |
 | **IAM Privilege Drift Detection Agent** | Continuous detection and remediation of IAM privilege drift |
 
-All three projects use AWS Bedrock Mantle for LLM inference and follow the same architectural pattern: deterministic gate, human-in-the-loop for high-risk actions, and audit logging to ServiceNow.
+All three projects use AWS Bedrock Mantle for LLM inference and follow the same architectural pattern: a deterministic gate, human-in-the-loop approval for high-risk actions, and a structured audit record written for every decision.
 
 ---
 
