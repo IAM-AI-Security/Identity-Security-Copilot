@@ -4,7 +4,7 @@
 
 ---
 
-## Demo
+## Screenshots
 
 ![Identity Security Copilot](screenshot.png)
 
@@ -78,7 +78,7 @@ The assistant:
 45 documents · 531 indexed chunks · Last updated August 2026
 
 ### Meridian Financial Group (Mock Client Policies)
-Fictional financial services company used as a demo client persona. Written in authentic corporate policy voice with real document IDs, approval chains, and regulatory cross-references.
+Fictional financial services company used as a reference client persona. Written in authentic corporate policy voice with real document IDs, approval chains, and regulatory cross-references.
 
 | Document | Policy ID | Coverage |
 |---|---|---|
@@ -131,7 +131,7 @@ The assistant adapts its response format based on who is asking:
 
 ## AI Safety and Governance
 
-This project is governed as an enterprise AI system, not a demo:
+This project applies enterprise AI governance patterns:
 
 - **Grounding is measured, not asserted**: every answer is scored by an Amazon Bedrock Guardrails contextual grounding check before it is returned. The retrieved context, the question and the answer are sent to `ApplyGuardrail`, which returns a GROUNDING score and a RELEVANCE score. Both must meet a threshold of 0.75 or the answer is withheld and the standard fallback is returned instead. If the check cannot be completed, for any reason, the answer is withheld as well: an answer that could not be verified is not treated as an answer that passed. The scores and the decision travel with every response under `grounding`.
 
